@@ -2,6 +2,7 @@ let myLeads = [];
 const inputEl = document.querySelector("#input-el");
 const ulEl = document.querySelector("#ul-el");
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
+// const tabs = [{ url: "hello.com" }];
 
 if (leadsFromLocalStorage) {
   myLeads = leadsFromLocalStorage;
@@ -26,6 +27,15 @@ inputBtn.addEventListener("click", () => {
   inputEl.value = "";
   localStorage.setItem("myLeads", JSON.stringify(myLeads));
   render(myLeads);
+});
+
+const tabBtn = document.querySelector("#tab-btn");
+tabBtn.addEventListener("click", () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    myLeads.push(tabs[0].url);
+    localStorage.setItem("myLeads", JSON.stringify(myLeads));
+    render(myLeads);
+  });
 });
 
 const deleteBtn = document.querySelector("#delete-btn");
