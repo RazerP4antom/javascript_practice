@@ -1,38 +1,36 @@
 let myLeads = [];
 const inputEl = document.querySelector("#input-el");
 const ulEl = document.querySelector("#ul-el");
-// localStorage.clear();
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
 
-let leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
 if (leadsFromLocalStorage) {
   myLeads = leadsFromLocalStorage;
-  renderLeads();
+  render(myLeads);
+}
+
+function render(leads) {
+  let listItems = "";
+  for (let i = 0; i < leads.length; i++) {
+    listItems += `<li>
+        <a target='_blank' href='${leads[i]}'> 
+         ${leads[i]} 
+        </a>
+      </li>`;
+  }
+  ulEl.innerHTML = listItems;
 }
 
 const inputBtn = document.querySelector("#input-btn");
 inputBtn.addEventListener("click", () => {
   myLeads.push(inputEl.value);
   inputEl.value = "";
-  // myLeads = JSON.stringify(myLeads);
   localStorage.setItem("myLeads", JSON.stringify(myLeads));
-  renderLeads();
-  // console.log(localStorage.getItem("myLeads"));
-  // console.log(getLeads());
+  render(myLeads);
 });
 
-
-function renderLeads(){
-  let listItems = "";
-  for (let i = 0; i < myLeads.length; i++) {
-    // ulEl.innerHTML += "<li>" +  myLeads[i] + "</li>";
-    // const li = document.createElement("li");
-    // li.textContent = myLeads[i];
-    // ulEl.append(li);
-    listItems += `<li>
-        <a target='_blank' href='${myLeads[i]}'> 
-         ${myLeads[i]} 
-        </a>
-      </li>`;
-  }
-  ulEl.innerHTML = listItems;
-}
+const deleteBtn = document.querySelector("#delete-btn");
+deleteBtn.addEventListener("click", () => {
+  localStorage.clear();
+  myLeads = [];
+  render(myLeads);
+});
