@@ -4,10 +4,10 @@ let temperature = document.querySelector(".temp");
 let humidity = document.querySelector(".humidity");
 let windSpeed = document.querySelector(".wind");
 const image = document.querySelector(".weather-icon");
-      // const cityName = document.querySelector(".city");
-      // const temperature = document.querySelector(".temp");
-      // const humidity = document.querySelector(".humidity");
-      // const windSpeed = document.querySelector(".wind");
+// const cityName = document.querySelector(".city");
+// const temperature = document.querySelector(".temp");
+// const humidity = document.querySelector(".humidity");
+// const windSpeed = document.querySelector(".wind");
 
 // async function chechWeather() {
 //   const response = await fetch(apiUrl);
@@ -38,7 +38,6 @@ searchWeatherBtn.addEventListener("click", () => {
         windSpeed.innerHTML = "";
       }
 
-      
       console.log(json);
       switch (json.weather[0].main) {
         case "Clear":
